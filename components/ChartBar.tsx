@@ -36,13 +36,14 @@ export interface IProps {
 /// Chart Bar ( First Chart Tab )
 function ChartBar(props: IProps) {
     // Get the current ref of chart
-    const chartRef = useRef(null);
+    const chartRef: any = useRef(null);
 
-    // UseMemo to reduce work every render
-    const dataRaw = useMemo(() => {
-        // Empty data set, using map to fast get throught the informations
+    // UseMemo to reduce workload every render
+    const dataRaw: Map<string, number> = useMemo(() => {
+        // Empty data set, using map to fast get through the informations
         let dataSet: Map<string, number> = new Map<string, number>();
-        // Loop between values, filter for continent to check only countries, and not part of world ( example, we want to filter "World" from this step )
+
+        // Loop between values, filter for the continent to check only countries, and not part of the world (for example, we want to filter "World" from this step )
         Object.values(props.currentData).filter((i: ICountry) => i.continent).forEach((nation: ICountry) => {
             let counter = 0;
             // Loop between every day of single country
@@ -58,15 +59,15 @@ function ChartBar(props: IProps) {
 
         // Sort function to check 
         const sortCountries = (a: [string, number], b: [string, number]) => {
-            if (a[1] === Infinity)
+            if (a[1] === Infinity || isNaN(b[1]))
                 return 1;
-            else if (isNaN(a[1]))
+            else if (isNaN(a[1]) || (a[1] === Infinity))
                 return -1;
             else
                 return a[1] - b[1];
         }
 
-        // Return the list
+        // Return the Map
         return new Map(
             Array
                 .from(dataSet)
@@ -77,7 +78,7 @@ function ChartBar(props: IProps) {
 
 
     // Chart JS Options
-    const options = {
+    const options: any = {
         indexAxis: 'y' as const,
         elements: {
             bar: {
@@ -127,15 +128,15 @@ function ChartBar(props: IProps) {
     };
 
     // Chartjs Options
-    const labels = Array.from(dataRaw.keys()).slice(0, props.options.secondSelector)
+    const labels: string[] = Array.from(dataRaw.keys()).slice(0, props.options.secondSelector)
 
     // If searched country missing from list, add it at the bottom
-    if (props.countryHighlighted != null && labels.indexOf(props.countryHighlighted) < 0) {
+    if (props.countryHighlighted && labels.indexOf(props.countryHighlighted) < 0) {
         labels.push(props.countryHighlighted)
     }
 
     // Data set Chart
-    const data = {
+    const data: any = {
         labels,
         datasets: [
             {
@@ -159,7 +160,11 @@ function ChartBar(props: IProps) {
 
 
     return <div className={`w-full sm:w-[80vw] mx-auto h-[64vh]`}>
-        <Bar ref={chartRef} options={options} data={data} />
+        <Bar
+            ref={chartRef}
+            options={options}
+            data={data}
+        />
     </div>
 }
 export default ChartBar

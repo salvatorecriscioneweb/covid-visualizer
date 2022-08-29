@@ -1,7 +1,7 @@
 import { NextPage } from "next/types"
 
 /// Homepage Render Function ( not used ), used only _app.js
-/// # DEPRECATED
+/// # Used only for render route /
 const Home: NextPage = () => {
   return <div />
 }

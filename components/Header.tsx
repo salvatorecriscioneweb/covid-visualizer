@@ -16,9 +16,12 @@ function Header(props: IProps) {
     const { dispatch } = props
 
     return <header className={`dark:bg-slate-700 h-20 w-full mx-auto px-4 sm:px-20 pt-2 text-center flex justify-between align-top`}>
-        <h1 className="pt-3 text-md text-left sm:text-center sm:text-2xl text-slate-600 dark:text-white">Simple Covid SPA Visualizer</h1>
+        <h1 className="pt-3 text-md text-left sm:text-center sm:text-2xl text-slate-600 dark:text-white">
+            {''}
+            Simple Covid Visualizer
+        </h1>
         <div className="flex">
-            <div className="pt-3 w-[200px]">
+            <div className="pt-3 w-[200px] sm:w-[400px]">
                 <CountriesPicker
                     dispatch={dispatch}
                     countries={props.countries}
@@ -27,7 +30,9 @@ function Header(props: IProps) {
             <button
                 id="theme-toggle"
                 type="button"
-                className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-non dark:focus:ring-gray-700 rounded-lg h-16 px-2.5"
+                role="switch"
+                aria-checked={props.theme}
+                className="text-gray-500 dark:text-gray-400 focus:outline-non dark:focus:ring-gray-700 rounded-lg h-16 px-2.5"
                 onClick={() => {
                     dispatch({
                         type: UIActions.SWITCH_THEME

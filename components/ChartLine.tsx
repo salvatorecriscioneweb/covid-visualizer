@@ -9,8 +9,9 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js'
-import ChartOptions1, { DailyOrComulative, DeathOrConfirmed } from '../types/ChartOptions1'
 import { useMemo } from 'react'
+import ChartOptions1, { DailyOrComulative, DeathOrConfirmed } from '../types/ChartOptions1'
+
 
 ChartJS.register(
     CategoryScale,
@@ -31,10 +32,16 @@ export interface IProps {
 }
 
 function ChartLine(props: IProps) {
-    const dataRaw: any = useMemo(() => {
+    // UseMemo to reduce workload every render
+    const dataRaw: Map<string, number> = useMemo(() => {
+        // Use Map to handle the data
         let dataSet: Map<string, number> = new Map<string, number>();
 
+        // Check loop countries, 2 filter is used:
+        //      1) For exclude the geographical zones, otherwise the data is included twice ( world + single country for example )
+        //      2) For exclude other country when the filter for country is active
         Object.values(props.currentData).filter((i: any) => i.continent).filter((i: any) => props.country ? i.location == props.country : true).forEach((nation: any) => {
+            // For every country loop the days
             nation.data?.forEach((day: any) => {
                 if (props.options.firstSelector == DeathOrConfirmed.DEATH) {
                     if (props.options.secondSelector == DailyOrComulative.COMULATIVE) {
@@ -51,9 +58,14 @@ function ChartLine(props: IProps) {
                 }
             })
         })
+
+        // Sort Function
         const sortStringKeys = (a: [string, number], b: [string, number]) => {
+            // a[0] = date, a[1] = number
             return (new Date(a[0]).getTime()) - (new Date(b[0]).getTime());
         }
+
+        // Return the Map
         return new Map(
             Array
                 .from(dataSet)
@@ -61,7 +73,8 @@ function ChartLine(props: IProps) {
         )
     }, [props.currentData, props.options, props.country])
 
-    const options = {
+    // Chart.js Options
+    const options: any = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
@@ -104,9 +117,11 @@ function ChartLine(props: IProps) {
         }
     };
 
-    const labels = Array.from(dataRaw.keys())
+    // Labels
+    const labels: string[] = Array.from(dataRaw.keys())
 
-    const data = {
+    // Chart.js Data
+    const data: any = {
         labels,
         datasets: [
             {

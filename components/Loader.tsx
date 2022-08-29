@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Rings } from 'react-loader-spinner'
+import Spinner from './Spinner'
 
 /// Loader's Props, not accepting any props
 export interface IProps { }
@@ -19,19 +19,10 @@ function Loader(props: IProps) {
         }
     }, [currentDot])
 
-    return <div className="fixed z-50 bg-gray-900 bg-opacity-90 w-full grid top-0 left-0 place-items-center h-screen">
+    return <div className="fixed z-50 bg-white dark:bg-slate-900 bg-opacity-90 w-full grid top-0 left-0 place-items-center h-screen">
         <div>
-            <Rings
-                height="160"
-                width="160"
-                color="#FFF"
-                radius="6"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-                ariaLabel="rings-loading"
-            />
-            <h3 className='text-white font-mono text-center'>Loading data
+            <Spinner />
+            <h3 className='text-black dark:text-white font-mono text-center'>Loading data
                 {
                     Array(currentDot)
                         .fill('.')

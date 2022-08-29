@@ -16,6 +16,7 @@
 /build
 
 /public/owid-covid-data.json
+/public/owid-covid.json
 
 # misc
 .DS_Store

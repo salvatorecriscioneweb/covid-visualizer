@@ -30,40 +30,76 @@ function Footer(props: IProps) {
         {
             props.currentTab == ITabs.REPORTED ?
                 <>
-                    <input
-                        type="checkbox"
-                        onChange={(evt) => {
-                            dispatch({
-                                type: UIActions.SWITCH_FIRST_SELECTOR_FIRST_CHART,
-                            })
-                        }}
-                        checked={props.firstGraphOptions.firstSelector != DeathOrConfirmed.DEATH}
-                    />
-                    <span className="pl-2">
-                        Show Confirmed Cases</span>
-                    <input
-                        className="ml-16"
-                        type="checkbox"
-                        onChange={(evt) => {
-                            dispatch({
-                                type: UIActions.SWITCH_SECOND_SELECTOR_FIRST_CHART,
-                            })
-                        }}
-                        checked={props.firstGraphOptions.secondSelector != DailyOrComulative.DAILY}
-                    />
-                    <span className="pl-2">
-                        Show Comulative Cases</span>
+                    <label
+                        htmlFor="first-ui-selector"
+                        className="flex items-center cursor-pointer"
+                    >
+                        <div className="relative">
+                            <input
+                                id="first-ui-selector"
+                                onChange={(evt) => {
+                                    dispatch({
+                                        type: UIActions.SWITCH_FIRST_SELECTOR_FIRST_CHART,
+                                    })
+                                }}
+                                checked={props.firstGraphOptions.firstSelector == DeathOrConfirmed.CONFIRMED_CASES}
+                                type="checkbox"
+                                className="sr-only"
+                            />
+                            <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                            <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                        </div>
+                        <div className="ml-3 text-gray-700 dark:text-white font-medium">
+                            Show Confirmed Cases
+                        </div>
+                    </label>
+                    <label
+                        htmlFor="second-ui-selector"
+                        className="flex items-center cursor-pointer ml-16"
+                    >
+                        <div className="relative">
+                            <input
+                                id="second-ui-selector"
+                                onChange={(evt) => {
+                                    dispatch({
+                                        type: UIActions.SWITCH_SECOND_SELECTOR_FIRST_CHART,
+                                    })
+                                }}
+                                checked={props.firstGraphOptions.secondSelector == DailyOrComulative.COMULATIVE}
+                                type="checkbox"
+                                className="sr-only"
+                            />
+                            <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                            <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                        </div>
+                        <div className="ml-3 text-gray-700 dark:text-white font-medium">
+                            Show Comulative Cases
+                        </div>
+                    </label>
                 </> : <>
-                    <input
-                        type="checkbox"
-                        onChange={(evt) => {
-                            dispatch({
-                                type: UIActions.SWITCH_FIRST_SELECTOR_SECOND_CHART,
-                            })
-                        }}
-                        checked={props.secondGraphOptions?.firstSelector != DeathOrTotal.DEATH}
-                    />
-                    <span className="pl-2">Show Confirmed Cases</span>
+                    <label
+                        htmlFor="second-ui-selector"
+                        className="flex items-center cursor-pointer"
+                    >
+                        <div className="relative">
+                            <input
+                                id="second-ui-selector"
+                                onChange={(evt) => {
+                                    dispatch({
+                                        type: UIActions.SWITCH_FIRST_SELECTOR_SECOND_CHART,
+                                    })
+                                }}
+
+                                type="checkbox"
+                                className="sr-only"
+                            />
+                            <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                            <div className="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                        </div>
+                        <div className="ml-3 text-gray-700 dark:text-white font-medium">
+                            Show Confirmed Cases
+                        </div>
+                    </label>
                     <Select<NumberOption>
                         id="chart-control-2"
                         className="react-select-spa-container ml-16"

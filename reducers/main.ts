@@ -15,6 +15,7 @@ export const initialState = {
     themeDark: false,
 }
 
+/// UI Actions
 export enum UIActions {
     SET_COUNTRY,
     SWITCH_FIRST_SELECTOR_FIRST_CHART,
@@ -24,12 +25,14 @@ export enum UIActions {
     SWITCH_THEME,
 }
 
+/// Dispatcher Action
 export interface IAction {
     type: UIActions;
-    data: any;
+    data?: any;
 }
 
-export function reducer(state : any, action:IAction) {
+/// Main Reducer
+export function reducer(state: any, action: IAction) {
     switch(action.type) {
         case UIActions.SWITCH_THEME:
             return {

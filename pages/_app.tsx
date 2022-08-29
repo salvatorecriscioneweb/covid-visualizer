@@ -9,7 +9,7 @@ import Chart from '../components/ChartLine'
 import Loader from '../components/Loader'
 import axios from 'axios'
 
-import { reducer, initialState } from '../reducers/main'
+import { reducer, initialState, UIActions } from '../reducers/main'
 export enum ITabs {
   REPORTED,
   RANKED
@@ -20,7 +20,7 @@ import ChartLine from '../components/ChartLine'
 import ChartBar from '../components/ChartBar'
 
 // Only during development
-// const ORIGIN = '/owid-covid-data.json';
+// const ORIGIN = '/owid-covid.json';
 //
 const ORIGIN = "https://covid.ourworldindata.org/data/owid-covid-data.json"
 // import ExampleData from '../data/owid-covid-data.json'
@@ -38,28 +38,42 @@ function MyApp({ }: AppProps) {
   /// Redux
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  /// List of country for menu, cleaned from the original to don't pass as props a big array and save memory
   const listOfCountryMenu: ICountriesMenu[] = useMemo(() => Object.values(currentData).map((item: any) => {
     return {
       name: item.location,
       continent: item.continent,
     }
-  }), [currentData])
+  }), [currentData]) /* Update only on change data */
 
-  // Fetch the public data
   useEffect(() => {
+    // Check for Dark Theme at first render
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      // If user already have a theme, keep it
+      dispatch({
+        type: UIActions.SWITCH_THEME,
+        data: undefined
+      })
+    }
+
+    // Fetch the data
     axios.get(ORIGIN).then((res: any) => {
       setCurrentData(res.data)
       setIsLoaded(true)
     })
-  }, [])
+  }, []) /* Do Only Once */
 
   // Handle Dark Theme
   useEffect(() => {
     // Check for SSR
     if (typeof window != "undefined" && state.themeDark) {
       document.documentElement.classList.add('dark')
+      // save theme to local storage
+      localStorage.theme = 'dark'
     } else {
       document.documentElement.classList.remove('dark')
+      // save theme to local storage
+      localStorage.theme = 'light'
     }
   }, [state.themeDark])
 
@@ -67,22 +81,26 @@ function MyApp({ }: AppProps) {
   if (!isLoaded) {
     return <Loader />
   }
+
   return (
     <>
       <Head>
-        <title>Covid Cases Viewer</title>
+        <title>Covid Visualizer</title>
       </Head>
       <div className={`min-h-screen bg-white dark:bg-slate-700 duration-300`}>
+        {/* Header */}
         <Header
           countries={listOfCountryMenu}
-          dispatch={dispatch}
           theme={state.themeDark}
+          dispatch={dispatch}
         />
         <div className="min-h-full">
+          {/* Tabs */}
           <Tabs
             setCurrentTab={setCurrentTab}
             currentTab={currentTab}
           />
+          {/* Graphs */}
           <main role="main" className={`px-4 flex w-full h-auto p-8 pb-32 bg-gray-100 dark:bg-slate-800 duration-300`}>
             {
               currentTab == ITabs.REPORTED ?
@@ -101,11 +119,12 @@ function MyApp({ }: AppProps) {
             }
           </main>
         </div>
+        {/* Footer */}
         <Footer
           currentTab={currentTab}
           firstGraphOptions={state.firstGraphOptions}
-          dispatch={dispatch}
           secondGraphOptions={state.secondGraphOptions}
+          dispatch={dispatch}
         />
       </div>
     </>

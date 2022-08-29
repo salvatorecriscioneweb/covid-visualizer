@@ -13,7 +13,8 @@ Stack used:
  Data source: https://covid.ourworldindata.org/data/owid-covid-data.json
  Data git source: https://github.com/owid/covid-19-data/tree/master/public/data
 
-Features / Todo:
+Features / Todos:
  - [x] Dark mode
  - [ ] Unit Test
  - [ ] WCAG / AAA Contrast 
+ - [ ] Chart.js types

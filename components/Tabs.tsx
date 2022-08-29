@@ -14,7 +14,7 @@ export interface IProps {
 function Tabs(props: IProps) {
     const { currentTab, setCurrentTab } = props
 
-    return <div className={`flex w-full `}>
+    return <div className={`flex w-full `} role="tabpanel">
         <Tab
             tab={ITabs.REPORTED}
             active={currentTab == ITabs.REPORTED}

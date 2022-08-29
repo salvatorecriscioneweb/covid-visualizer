@@ -9,9 +9,13 @@ export interface ICountriesPickerProps {
 }
 
 function CountriesPicker(props: ICountriesPickerProps) {
-    const items = useMemo(() => props.countries?.filter((i: any) => i.continent), [props.countries])
-
+    // Get the dispatch
     const { dispatch } = props
+
+    // React render tree already do the trick, not needed useMemorize to save the results
+    // DEPRECATED: const items: ICountriesMenu[] = useMemo(() => props.countries?.filter((i: any) => i.continent), [props.countries]) || []
+    const items: ICountriesMenu[] = props.countries?.filter((i: any) => i.continent) || []
+
     return <>
         <Select<ICountriesMenu>
             id="country-select"
