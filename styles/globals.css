@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    font-family: 'Lato', sans-serif;
+}
+
+@layer components {
+    .react-select-spa-container .react-select-spa__control {
+      @apply bg-white dark:bg-neutral-700 border-2 border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500;
+    }
+    .react-select-spa-container .react-select-spa__control--is-focused {
+      @apply border-neutral-500 hover:border-neutral-500 dark:border-neutral-400 dark:hover:border-neutral-400 shadow-none;
+    }
+    .react-select-spa-container .react-select-spa__menu {
+      @apply bg-neutral-100 dark:bg-neutral-700 border-2 border-neutral-300 dark:border-neutral-600;
+    }
+    .react-select-spa-container .react-select-spa__option {
+      @apply text-neutral-600 dark:text-neutral-200 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-800;
+    }
+    .react-select-spa-container .react-select-spa__indicator-separator {
+      @apply bg-neutral-400;
+    }
+    .react-select-spa-container .react-select-spa__input-container,
+    .react-select-spa-container .react-select-spa__placeholder,
+    .react-select-spa-container .react-select-spa__single-value {
+      @apply text-neutral-600 dark:text-neutral-200;
+    }
+  }
+
+  input[type=text], input[type=text]:focus, input[type=text]:active {
+    --tw-ring-color: transparent !important;
+  }
