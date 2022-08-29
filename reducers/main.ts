@@ -4,8 +4,6 @@ import { DeathOrTotal } from "../types/ChartOptions2";
 /// Redux Initial State
 export const initialState = {
     country: null,
-    dateBegin: null,
-    dateEnds: null,
     firstGraphOptions: {
         firstSelector: DeathOrConfirmed.DEATH,
         secondSelector: DailyOrComulative.DAILY,
@@ -19,7 +17,6 @@ export const initialState = {
 
 export enum UIActions {
     SET_COUNTRY,
-    SET_DATE,
     SWITCH_FIRST_SELECTOR_FIRST_CHART,
     SWITCH_SECOND_SELECTOR_FIRST_CHART,
     SWITCH_FIRST_SELECTOR_SECOND_CHART,
@@ -38,12 +35,6 @@ export function reducer(state : any, action:IAction) {
             return {
                 ...state,
                 themeDark: !state.themeDark,
-            }
-        case UIActions.SET_DATE:
-            return {
-                ...state,
-                dateBegin: action.data.dateBegin,
-                dateEnds: action.data.dateEnds,
             }
         case UIActions.SET_COUNTRY:
             return {
