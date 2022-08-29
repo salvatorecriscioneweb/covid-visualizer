@@ -3,11 +3,15 @@ import Select from 'react-select';
 import { UIActions } from '../reducers/main';
 import { ICountriesMenu } from "./Header";
 
+/// ICountriesPickerProps
+/// [countries]: List of countries clean, can be null
+/// [dispatch]: Dispatch Function *required*
 export interface ICountriesPickerProps {
     countries?: ICountriesMenu[];
     dispatch: Function;
 }
 
+/// CountriesPicker
 function CountriesPicker(props: ICountriesPickerProps) {
     // Get the dispatch
     const { dispatch } = props

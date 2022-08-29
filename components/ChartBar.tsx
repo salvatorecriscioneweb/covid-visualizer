@@ -94,7 +94,7 @@ function ChartBar(props: IProps) {
             title: {
                 display: true,
                 text: `Top ${props.options.secondSelector} countries`,
-                color: props.themeDark ? 'white' : 'black',
+                color: props.themeDark ? '#333' : 'black',
             },
         },
         scales: {
@@ -152,7 +152,7 @@ function ChartBar(props: IProps) {
                             }
                         }
                     }
-                    return '#ff764a'
+                    return 'rgb(125,211,252)'
                 },
             },
         ],

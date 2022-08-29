@@ -12,7 +12,7 @@ import {
 import { useMemo } from 'react'
 import ChartOptions1, { DailyOrComulative, DeathOrConfirmed } from '../types/ChartOptions1'
 
-
+// Register ChartJS
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -23,7 +23,11 @@ ChartJS.register(
     Legend
 );
 
-
+/// Props
+/// [currentData]: Raw Data from JSON
+/// [options]: Chart Options
+/// [country]: Selected Country, can be null 
+/// [themeDark]: Dark Theme boolean
 export interface IProps {
     currentData: Object;
     options: ChartOptions1;
@@ -94,7 +98,6 @@ function ChartLine(props: IProps) {
                     font: {
                         size: 12,
                     },
-                    beginAtZero: true
                 },
                 grid: {
                     borderColor: props.themeDark ? 'white' : 'black',
@@ -108,7 +111,6 @@ function ChartLine(props: IProps) {
                     font: {
                         size: 10,
                     },
-                    beginAtZero: true
                 },
                 grid: {
                     display: false,
