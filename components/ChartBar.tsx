@@ -93,7 +93,7 @@ function ChartBar(props: IProps) {
             },
             title: {
                 display: true,
-                text: `Top ${props.options.secondSelector} countries`,
+                text: `Top ${props.options.secondSelector} countries ${props.options.firstSelector == DeathOrTotal.DEATH ? 'by deaths' : 'by cases'}`,
                 color: props.themeDark ? '#333' : 'black',
             },
         },
